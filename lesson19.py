@@ -55,6 +55,21 @@ selected_genre = st.sidebar.selectbox("Select Genre", ['All'] + list(books_df['G
 min_rating = st.sidebar.slider("Minimum User Rating", 0.0, 5.0, 0.0, 0.1)
 max_price = st.sidebar.slider("Maximum Price", 0, books_df['Price'].max(), books_df['Price'].max())
 
+filtered_Book_df = books_df.copy()
+
+if selected_author !="All":
+    filtered_Book_df = filtered_Book_df[filtered_Book_df['Author'] == selected_author]
+if selected_Year !="All":
+    filtered_Book_df = filtered_Book_df[filtered_Book_df['Year'] == selected_year]
+if selected_genre !="All":
+    filtered_Book_df = filtered_Book_df[filtered_Book_df['Genre'] == selected_genre]
+
+filtered_Book_df = filtered_Book_df[(filtered_Book_df['User Rating'] >= min_rating) & filtered_Book_df['Price'] <= max_price]
+
+
+
+
+
 st.subheader('Summary')
 total_books = books_df.shape[0]
 unique_titles = books_df['Name'].nunique()
